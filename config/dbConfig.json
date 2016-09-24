@@ -1,0 +1,9 @@
+{
+	"host": "localhost",
+	"port": 3306,
+	"user": "yes",
+	"password": "1q2w3e!Q@W#E",
+	"database": "yesno",
+	"connectionLimit": 20,
+	"multipleStatements": true	
+}
