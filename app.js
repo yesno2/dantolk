@@ -11,6 +11,7 @@ const router = require('./routes');
 let app = express();
 
 app.use(express.static(path.join(__dirname, 'public')))
+	.use(express.static(path.join(__dirname, 'views')))
 	.use(BodyParser.json())
 	.use(BodyParser.urlencoded({ extended: false }))
 	.use(CookieParser())

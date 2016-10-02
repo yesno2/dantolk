@@ -1,7 +1,6 @@
 'use strict'
 
 const ChattingRoom = require('./ChattingRoom');
-const util = require('../../lib/util');
 
 function Rooms(){
 	this.rooms = new Array();	
@@ -14,29 +13,21 @@ Rooms.prototype.addRoom = function(repsId){
 };
 
 Rooms.prototype.deleteRoom = function(repsId){
-	util.iter(this.rooms, (room, index, rooms) => {
-		if(room.isRoom(repsId)){
-			room.close();
-			rooms.splice(index, 1);
-			return true;	
-		}	
-	});	
+	let index = this.rooms.findIndex((room) => {
+		room.isRoom(repsId);	
+	});
+	return index >= 0 ? this.rooms.splice(index, 1) : false;
 };
 
 Rooms.prototype.join = function(repsId, user){
-	let joinRoom;
-
-	util.iter(this.rooms, (room) => {
-		if(room.isRoom(repsId)){
-			joinRoom = room;
-			return true;
-		}	
+	let room = this.rooms.find((room) => {
+		return room.isRoom(repsId);	
 	});
-
-	if(!joinRoom){
-		joinRoom = this.addRoom(repsId);
+	if(room){
+		room = this.addRoom(repsId);	
 	}
-	joinRoom.addUser(user);
+
+	room.addUser(user);
 };
 
 module.exports = exports = new Rooms();

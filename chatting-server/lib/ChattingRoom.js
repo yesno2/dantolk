@@ -1,7 +1,5 @@
 'use strict'
 
-const util = require('../../lib/util');
-
 function ChattingRoom(repsId, user){
 	this.repsId = repsId;
 	this.users = new Array();
@@ -44,13 +42,10 @@ function addEventListener(self, user){
 }
 
 ChattingRoom.prototype.deleteUser = function(id){
-	util.iter(this.users, (user, index, users) => {
-		if(user.isUser(id)){
-			user.close();
-			users.splice(index, 1);
-			return true;
-		}
+	let index = this.users.findIndex((element) => {
+		return element.isUser(id);
 	});
+	return index > 0 ? this.users.splice(index, 1) : false;
 };
 
 ChattingRoom.prototype.send = function(message){

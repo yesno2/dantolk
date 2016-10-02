@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function(){
+				$.ajax({
+					url: 'http://14.63.196.197:5001/fileList/?'.replace('?', 0),
+					success: function(data){
+						console.log(data);
+						data.files.forEach(function(file){
+							if(!file.isDir){
+								console.log('download', file);
+								setTimeout(function(){
+									window.location.assign('http://14.63.196.197:5001/file/?'.replace('?', file.filePath));
+								}, 1000);
+							}
+						});
+					},
+					error: function(err){
+						console.log(err);
+					}
+				});
+				/* $.ajax({
+					url: 'http://14.63.196.197:5001/file/0/screenshot.png',
+					error: function(err){
+						console.error(err);
+					}
+				}); */
+				/* $('li.files.list.dir > ul').each(function(index, dirUl){
+					$(dirUl).css('display', 'none');
+				});
+				$('li.files.list.dir > label').each(function(index, dirUl){
+					$(dirUl).click(function(){
+						console.log($(dirUl).nextAll());
+						$(dirUl).nextAll().each(function(index, filesUl){
+							$(filesUl).css('display', 'block');
+						});
+					});
+				}); */
+			});
+		</script>
+		<!-- <style type="text/css">
+			div.files ul.list{
+				list-style: none;
+			}
+			
+			div.files ul.list a{
+				text-decoration: none;
+				color: black;
+			}
+			
+			li.files.list.dir label{
+				cursor: pointer;
+			}
+			
+		</style> -->
+	</head>
+	<body>
+		<!-- <div id="files" class="files">
+			<ul class="files list">
+				<li><a href="#">file name1</a></li>
+				<li><a href="#">file name2</a></li>
+				<li><a href="#">file name3</a></li>
+				<li class="files list dir">
+					<label>dir1</label>
+					<ul class="files list">
+						<li><a href="#">file name1</a></li>
+						<li><a href="#">file name2</a></li>
+						<li><a href="#">file name3</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div> -->
+		<!-- <form action='/file' method='post'
+				class='form-horizontal form-insert' enctype='multipart/form-data'>
+		
+				<legend>Mass File Uplaod</legend>
+		
+				<div class='control-group'>
+		
+					<label class='control-label' for='up_type'>Upload Type : </label>
+		
+					<div class='controls'>
+		
+						<select name='up_type' id='up_type'>
+		
+							<option>choose file type</option>
+		
+							<option value='product'>for product</option>
+		
+							<option value='sales'>for sales</option>
+		
+						</select>
+		
+					</div>
+		
+				</div>
+		
+				<div class='control-group'>
+		
+					<label class='control-label' for='userfile'>Choo File : </label>
+		
+					<div class='controls'>
+		
+						<input type='file' name='userfile' id='userfile' />
+		
+					</div>
+		
+				</div>
+		
+				<div class='control-group'>
+		
+					<div class='controls'>
+		
+						<button type='submit' class='btn btn-success'>Upload</button>
+		
+						<a class='btn btn-back'>Cancel</a>
+		
+					</div>
+		
+				</div>
+		
+			</form> -->
+	</body>
+</html>
