@@ -1,5 +1,6 @@
 'use strict'
 
+<<<<<<< HEAD
 const service = require('../lib/service');
 const express = require('express');
 const fs = require('fs');
@@ -29,19 +30,47 @@ router.post('/file', (req, res, next) => {
 }, errorCtl);
 
 router.get('/fileList/:repsId/:dirPath?', (req, res, next) => {
+=======
+const service = require('../service');
+const express = require('express');
+const router = express.Router();
+
+router.get('/', (req, res, next) => {
+	res.end('<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Insert title here</title></head><body> <form action="/file" method="post" enctype="multipart/form-data">repsId <input type="text" name="repsId"><p>file :<input type="file" name="myfile1"><input type="file" name="myfile2"><input type="submit" value="Upload"></form></body></html>');	
+});
+
+router.post('/file', (req, res) => {
+	service.file.saveFile(req).then((result) => {
+		res.send({result: true});	
+	}).catch((err) => {
+		res.send({result: false, err: err});
+	});
+});
+
+router.get('/file/list/:repsId/:dirPath?', (req, res) => {
+>>>>>>> e69ebe7e4b3c7f90c9cdd60c8aec96bec2ab681f
 	try{
 		let files = service.file.getFileList(req.params.repsId, req.params.dirPath);
 		res.send({result: true, files: files});
 	}catch(err){
+<<<<<<< HEAD
 		next(err);
 	}
 }, errorCtl);
 
 router.get('/file/:repsId/:targetPath', (req, res, next) => {
+=======
+		res.send({result: false, err: err.message});
+	}
+});
+
+router.get('/file/:repsId/:targetPath', (req, res) => {
+>>>>>>> e69ebe7e4b3c7f90c9cdd60c8aec96bec2ab681f
 	try{
 		let filePath = service.file.getFile(req.params.repsId, req.params.targetPath);
 		res.download(filePath);
 	}catch(err){
+<<<<<<< HEAD
 		next(err);
 	}
 }, errorCtl);
@@ -149,4 +178,10 @@ router.get('/participation/:repsId/:userId?', (req, res) => {
 	]);	
 }, errorCtl);
 
+=======
+		res.send({result: false, err});	
+	}
+});
+
+>>>>>>> e69ebe7e4b3c7f90c9cdd60c8aec96bec2ab681f
 module.exports = exports = router;
